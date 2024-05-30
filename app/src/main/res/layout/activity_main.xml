@@ -59,6 +59,7 @@
                 android:background="@android:color/transparent"
                 android:hint="Tap here to enter city name"
                 android:padding="5dp"
+                android:alpha=".75"
                 android:textColorHint="@color/white"
                 app:boxStrokeColor="@android:color/transparent"
                 app:hintTextColor="@color/white">

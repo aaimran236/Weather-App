@@ -124,10 +124,11 @@ public class MainActivity extends AppCompatActivity {
                     Picasso.get().load("http:".concat(conditionIcon)).into(iconIV);
                     if (isDay == 1) {
                         ///day
-                        Picasso.get().load("https://images.unsplash.com/photo-1514241516423-6c0a5e031aa2?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=387&q=80").into(backIV);
+                        Picasso.get().load("https://images.pexels.com/photos/2086748/pexels-photo-2086748.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1").into(backIV);
                     } else {
                         ///night
-                        Picasso.get().load("https://images.unsplash.com/photo-1536152470836-b943b246224c?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=438&q=80").into(backIV);
+
+                        Picasso.get().load("https://images.pexels.com/photos/271465/nature-landscape-night-sky-271465.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1").into(backIV);
                     }
                     JSONObject forecastObj = response.getJSONObject("forecast");
                     JSONObject forecast0 = forecastObj.getJSONArray("forecastday").getJSONObject(0);
@@ -175,5 +176,7 @@ public class MainActivity extends AppCompatActivity {
         });
         AlertDialog alertDialog = alertdialogBuilder.create();
         alertDialog.show();
+
     }
+
 }
