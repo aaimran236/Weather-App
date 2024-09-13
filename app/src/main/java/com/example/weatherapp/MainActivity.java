@@ -1,5 +1,6 @@
 package com.example.weatherapp;
 
+import androidx.activity.EdgeToEdge;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.Nullable;
@@ -83,7 +84,8 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS, WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
+//        getWindow().setFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS, WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
+        EdgeToEdge.enable(this);
         setContentView(R.layout.activity_main);
 
         //finding views by their id
@@ -133,10 +135,12 @@ public class MainActivity extends AppCompatActivity {
                             if (fineLocationGranted != null && fineLocationGranted) {
                                 // Precise location access granted.
                                 Toast.makeText(this, "Precise location access granted.", Toast.LENGTH_SHORT).show();
+                                if (isLocationEnabled())callbackCurrentLocation();
 
                             } else if (coarseLocationGranted != null && coarseLocationGranted) {
                                 // Only approximate location access granted.
                                 Toast.makeText(this, "Only approximate location access granted.", Toast.LENGTH_SHORT).show();
+                                if (isLocationEnabled())callbackCurrentLocation();
 
                             } else {
 
@@ -214,7 +218,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void requestCurrentLocation() {
-
+       
         LocationRequest locationRequest = new LocationRequest.Builder(
                 Priority.PRIORITY_HIGH_ACCURACY, 1000) // 10 seconds interval
                 .setMinUpdateIntervalMillis(500)       // Fastest interval of 5 seconds
