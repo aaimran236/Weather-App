@@ -58,7 +58,11 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
@@ -81,6 +85,7 @@ public class MainActivity extends AppCompatActivity {
     private static boolean granted=false;
 
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -100,6 +105,7 @@ public class MainActivity extends AppCompatActivity {
         iconIV = findViewById(R.id.idIVIcon);
         searchIV = findViewById(R.id.idIVSearch);
         weatherRVModelArrayList = new ArrayList<>();
+
         weatherRVAdapter = new WeatherRVAdapter(this, weatherRVModelArrayList);
         weatherRV.setAdapter(weatherRVAdapter);
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
@@ -150,10 +156,10 @@ public class MainActivity extends AppCompatActivity {
                 );
 
 
-        cityName="London";
-
-        cityNameTV.setText(cityName);
-        getWeatherInfo(cityName);
+//        cityName="London";
+//
+//        cityNameTV.setText(cityName);
+//        getWeatherInfo(cityName);
 
 
         locationPermission();
@@ -314,7 +320,7 @@ public class MainActivity extends AppCompatActivity {
 
     //method to get weather information of a specific city that user searched for
     private void getWeatherInfo(String cityName) {
-        String url = "http://api.weatherapi.com/v1/forecast.json?key= 358041ad9fdd42988c871736210612&q=" + cityName + "&days=1&aqi=yes&alerts=yes";
+        String url = "http://api.weatherapi.com/v1/forecast.json?key= "+Credentials.api_key+"&q=" + cityName + "&days=1&aqi=yes&alerts=yes";
         RequestQueue requestQueue = Volley.newRequestQueue(this);
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
             @Override
