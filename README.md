@@ -1,13 +1,20 @@
 # Weather App
 
-Welcome to the Weather App! This Android application provides accurate and up-to-date weather forecasts for any city in the world. The app uses data from the [WeatherAPI](https://www.weatherapi.com/) to provide a 24-hour weather forecast for a selected city. The background image of the app changes dynamically based on whether it is day or night in the selected city.
+Welcome to the Weather App! This Android application provides accurate and up-to-date weather forecasts for any city in the world. The app uses data from the  [WeatherAPI](https://www.weatherapi.com/) to provide a 24-hour weather forecast for a selected city, with the background image changing dynamically based on whether it is day or night in that location. Additionally, the app now includes functionality to request location permission from the user and guide them to enable location services. Once location services are successfully enabled, the app will automatically display the weather for the user's current city.
 
 ## Features
-
+- **Current Location Support**: The app can request location permission and prompt users to turn on location services, allowing the app to display the weather for the user’s current city.
+  
 - **Search by City**: Users can search for any city by name to get the current weather and a 24-hour forecast.
+  
 - **24-Hour Forecast**: Detailed weather information for the next 24 hours, including temperature, humidity, wind speed, and more.
+  
 - **Dynamic Background**: The background image changes to reflect day or night based on the selected city's local time.
+  
 - **User-Friendly Interface**: Simple and intuitive design for a seamless user experience.
+
+## Video
+https://github.com/user-attachments/assets/2afd942f-b564-4683-b79b-9548758b25bf
 
 ## Screenshots
 <img src="https://github.com/aaimran236/Weather-App/assets/106193863/b412a93b-2562-413c-b63f-92fb5c2588e1" width="200" height="445">
@@ -56,9 +63,11 @@ Follow these instructions to get a copy of the project up and running on your lo
 ## Usage
 
 1. Launch the app on your device.
-2. Enter the name of a city in the search bar.
-3. View the current weather and the 24-hour forecast for the selected city.
-4. Notice the background image changing based on whether it is day or night in the city.
+2. Grant location permission when prompted and enable location services if necessary.
+3. The app will automatically display the weather for your current location.
+4. Alternatively, you can enter the name of a city in the search bar.
+5. View the current weather and the 24-hour forecast for the selected or detected city.
+6. Notice the background image changing based on whether it is day or night in the city.
 
 ## Built With
 
