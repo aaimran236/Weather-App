@@ -69,7 +69,8 @@ import java.util.Locale;
 public class MainActivity extends AppCompatActivity {
     private RelativeLayout homeRL;
     private ProgressBar loadingPB;
-    private TextView cityNameTV, temperatureTV, conditionTV;
+    private TextView cityNameTV, temperatureTV, conditionTV,humidityTV,real_feelTV,
+            uvTV,pressureTV,wind_speedTV,cloudTV,visibilityTV;
     private RecyclerView weatherRV;
     private TextInputEditText cityEdit;
     private ImageView backIV, iconIV, searchIV;
@@ -83,7 +84,7 @@ public class MainActivity extends AppCompatActivity {
     private ActivityResultLauncher<String[]> locationPermissionRequest;
     private static final int REQUEST_CHECK_SETTINGS = 1001;
     private static boolean granted=false;
-
+    private String humidity,uv,real_feel,pressure,wind_speed,cloud,visibility;
 
 
     @Override
@@ -99,6 +100,15 @@ public class MainActivity extends AppCompatActivity {
         cityNameTV = findViewById(R.id.idTVCityName);
         temperatureTV = findViewById(R.id.idTVTemperature);
         conditionTV = findViewById(R.id.idTVCondition);
+
+        humidityTV=findViewById(R.id.idTVHumidity);
+        real_feelTV=findViewById(R.id.idTVRealFeel);
+        uvTV=findViewById(R.id.idTVUV);
+        pressureTV=findViewById(R.id.idTVAirPressure);
+        wind_speedTV=findViewById(R.id.idTVWindKPH);
+        cloudTV=findViewById(R.id.idTVCloud);
+        visibilityTV=findViewById(R.id.idTVVisibility);
+
         weatherRV = findViewById(R.id.idRVWeather);
         cityEdit = findViewById(R.id.idEditCity);
         backIV = findViewById(R.id.idIVBack);
@@ -119,7 +129,7 @@ public class MainActivity extends AppCompatActivity {
                 @Override
                 public void onClick(DialogInterface dialogInterface, int i) {
                     dialogInterface.dismiss();
-
+                    finish();
                 }
             });
             AlertDialog alertDialog = alertdialogBuilder.create();
@@ -140,17 +150,17 @@ public class MainActivity extends AppCompatActivity {
                                     Manifest.permission.ACCESS_COARSE_LOCATION,false);
                             if (fineLocationGranted != null && fineLocationGranted) {
                                 // Precise location access granted.
-                                Toast.makeText(this, "Precise location access granted.", Toast.LENGTH_SHORT).show();
+
                                 if (isLocationEnabled())callbackCurrentLocation();
 
                             } else if (coarseLocationGranted != null && coarseLocationGranted) {
                                 // Only approximate location access granted.
-                                Toast.makeText(this, "Only approximate location access granted.", Toast.LENGTH_SHORT).show();
+
                                 if (isLocationEnabled())callbackCurrentLocation();
 
                             } else {
-
                                 // No location access granted.
+                                Toast.makeText(this, "No location access granted.", Toast.LENGTH_SHORT).show();
                             }
                         }
                 );
@@ -177,7 +187,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
-
 
     private boolean isLocationEnabled() {
         LocationManager locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
@@ -224,7 +233,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void requestCurrentLocation() {
-       
+
         LocationRequest locationRequest = new LocationRequest.Builder(
                 Priority.PRIORITY_HIGH_ACCURACY, 1000) // 10 seconds interval
                 .setMinUpdateIntervalMillis(500)       // Fastest interval of 5 seconds
@@ -253,7 +262,7 @@ public class MainActivity extends AppCompatActivity {
             List<Address> addresses = geocoder.getFromLocation(latitude, longitude, 1);
             if (addresses != null && !addresses.isEmpty()) {
                 String cityName = addresses.get(0).getLocality();
-               getWeatherInfo(cityName);
+                getWeatherInfo(cityName);
             } else {
                 Toast.makeText(this, "City not found" ,Toast.LENGTH_SHORT).show();
             }
@@ -320,16 +329,23 @@ public class MainActivity extends AppCompatActivity {
 
     //method to get weather information of a specific city that user searched for
     private void getWeatherInfo(String cityName) {
+        //Replace Credentials.api_key with your own api key
+        //To get your api key go to https://www.weatherapi.com/ and signup
+        //after successful signup they will provide your an api key
         String url = "http://api.weatherapi.com/v1/forecast.json?key= "+Credentials.api_key+"&q=" + cityName + "&days=1&aqi=yes&alerts=yes";
         RequestQueue requestQueue = Volley.newRequestQueue(this);
         JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
-                cityNameTV.setText(cityName);
+
                 loadingPB.setVisibility(View.GONE);
                 homeRL.setVisibility(View.VISIBLE);
                 weatherRVModelArrayList.clear();
                 try {
+                    String city_name;
+                    city_name=response.getJSONObject("location").getString("name");
+                    cityNameTV.setText(city_name);
+
                     String temperature = response.getJSONObject("current").getString("temp_c");
                     temperatureTV.setText(temperature + "°C");
                     int isDay = response.getJSONObject("current").getInt("is_day");
@@ -337,6 +353,24 @@ public class MainActivity extends AppCompatActivity {
                     conditionTV.setText(condition);
                     String conditionIcon = response.getJSONObject("current").getJSONObject("condition").getString("icon");
                     Picasso.get().load("http:".concat(conditionIcon)).into(iconIV);
+
+                    humidity =response.getJSONObject("current").getString("humidity");
+                    real_feel=response.getJSONObject("current").getString("feelslike_c");
+                    uv=response.getJSONObject("current").getString("uv");
+                    pressure=response.getJSONObject("current").getString("pressure_mb");
+                    wind_speed=response.getJSONObject("current").getString("wind_kph");
+                    cloud=response.getJSONObject("current").getString("cloud");
+                    visibility=response.getJSONObject("current").getString("vis_km");
+
+                    humidityTV.setText("Humidity "+humidity+"%");
+                    real_feelTV.setText("Real feel "+real_feel+ "°C");
+                    uvTV.setText("UV "+uv);
+                    pressureTV.setText("Pressure "+pressure+"mbar");
+                    wind_speedTV.setText("Wind "+wind_speed+"km/h");
+                    cloudTV.setText("Cloud "+cloud+"%");
+                    visibilityTV.setText("Visibility "+visibility+"km");
+
+
                     if (isDay == 1) {
                         ///day
                         Picasso.get().load("https://images.pexels.com/photos/2086748/pexels-photo-2086748.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1").into(backIV);
@@ -345,6 +379,7 @@ public class MainActivity extends AppCompatActivity {
 
                         Picasso.get().load("https://images.pexels.com/photos/271465/nature-landscape-night-sky-271465.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1").into(backIV);
                     }
+
                     JSONObject forecastObj = response.getJSONObject("forecast");
                     JSONObject forecast0 = forecastObj.getJSONArray("forecastday").getJSONObject(0);
                     JSONArray hourArray = forecast0.getJSONArray("hour");

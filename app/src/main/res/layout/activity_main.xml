@@ -127,6 +127,75 @@
             android:textColor="@color/white" />
 
         <TextView
+            android:id="@+id/idTVHumidity"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/idTVCondition"
+            android:gravity="center"
+            android:text="Humidity 89%"
+            android:textColor="@color/white"
+            android:layout_marginTop="10dp"
+            />
+
+        <TextView
+            android:id="@+id/idTVRealFeel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/idTVHumidity"
+            android:gravity="center"
+            android:text="Real feel 28ºc"
+            android:textColor="@color/white"
+            />
+
+        <TextView
+            android:id="@+id/idTVUV"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/idTVRealFeel"
+            android:gravity="center"
+            android:text="UV 0"
+            android:textColor="@color/white"
+            />
+        <TextView
+            android:id="@+id/idTVAirPressure"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/idTVUV"
+            android:text="Pressure 999mbar"
+            android:gravity="center"
+            android:textAlignment="center"
+            android:textColor="@color/white"
+            />
+        <TextView
+            android:id="@+id/idTVWindKPH"
+            android:gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/idTVAirPressure"
+            android:text="Wind 3.5 kph"
+            android:textColor="@color/white"
+            />
+        <TextView
+            android:id="@+id/idTVCloud"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/idTVWindKPH"
+            android:text="Cloud 16%"
+            android:textColor="@color/white"
+            android:gravity="center"
+            />
+
+        <TextView
+            android:id="@+id/idTVVisibility"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/idTVCloud"
+            android:gravity="center"
+            android:text="Visibility 10km"
+            android:textColor="@color/white"
+            />
+
+        <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_above="@id/idRVWeather"
