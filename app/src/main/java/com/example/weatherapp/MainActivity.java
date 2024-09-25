@@ -21,6 +21,7 @@ import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationManager;
 import android.net.ConnectivityManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Looper;
 import android.view.View;
@@ -183,6 +184,8 @@ public class MainActivity extends AppCompatActivity {
                     if (isNetworkAvailable(MainActivity.this)) {
                         getWeatherInfo(city);
                     }
+                    else
+                        Toast.makeText(MainActivity.this, "No Internet", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -362,13 +365,13 @@ public class MainActivity extends AppCompatActivity {
                     cloud=response.getJSONObject("current").getString("cloud");
                     visibility=response.getJSONObject("current").getString("vis_km");
 
-                    humidityTV.setText("Humidity "+humidity+"%");
-                    real_feelTV.setText("Real feel "+real_feel+ "°C");
-                    uvTV.setText("UV "+uv);
-                    pressureTV.setText("Pressure "+pressure+"mbar");
-                    wind_speedTV.setText("Wind "+wind_speed+"km/h");
-                    cloudTV.setText("Cloud "+cloud+"%");
-                    visibilityTV.setText("Visibility "+visibility+"km");
+                    humidityTV.setText(humidity+"%");
+                    real_feelTV.setText(real_feel+ "°C");
+                    uvTV.setText(uv);
+                    pressureTV.setText(pressure+"mbar");
+                    wind_speedTV.setText(wind_speed+"km/h");
+                    cloudTV.setText(cloud+"%");
+                    visibilityTV.setText(visibility+"km");
 
 
                     if (isDay == 1) {
@@ -376,8 +379,7 @@ public class MainActivity extends AppCompatActivity {
                         Picasso.get().load("https://images.pexels.com/photos/2086748/pexels-photo-2086748.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1").into(backIV);
                     } else {
                         ///night
-
-                        Picasso.get().load("https://images.pexels.com/photos/271465/nature-landscape-night-sky-271465.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1").into(backIV);
+                         Picasso.get().load("https://images.pexels.com/photos/36487/above-adventure-aerial-air.jpg").into(backIV);
                     }
 
                     JSONObject forecastObj = response.getJSONObject("forecast");
